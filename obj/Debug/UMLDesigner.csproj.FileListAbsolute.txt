@@ -1,0 +1,11 @@
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\bin\Debug\UMLDesigner.exe.config
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\bin\Debug\UMLDesigner.exe
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\bin\Debug\UMLDesigner.pdb
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.csprojResolveAssemblyReference.cache
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.MainForm.resources
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.Properties.Resources.resources
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.csproj.GenerateResource.Cache
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.exe
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.pdb
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.UMLDocument.Designer.UmlDesigner.resources
+c:\users\gebruiker\documents\visual studio 2015\Projects\UMLDesigner\UMLDesigner\obj\Debug\UMLDesigner.UMLDocument.Designer.UmlForm.resources
