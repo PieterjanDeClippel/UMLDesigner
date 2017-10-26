@@ -12,17 +12,20 @@ namespace UMLDesigner.UMLDocument.Objects
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public bool Primary { get; set; }
 
         public event MouseEventHandler MouseClick;
         public event MouseEventHandler MouseEnter;
         public event EventHandler MouseLeave;
         public event MouseEventHandler MouseMove;
+        public event MouseEventHandler MouseDown;
+        public event MouseEventHandler MouseUp;
 
         private bool is_hover = false;
 
         public void Draw(Graphics gr, Font font, Color textColor, int x, int y, int width)
         {
-            Font item_font = new Font(font, FontStyle.Regular);
+            Font item_font = new Font(font, Primary ? FontStyle.Bold | FontStyle.Underline : FontStyle.Regular);
 
             if (is_hover)
                 gr.FillRectangle(new SolidBrush(Color.FromArgb(220, 220, 220)), x, y, width, 22);
@@ -52,5 +55,16 @@ namespace UMLDesigner.UMLDocument.Objects
             if (MouseMove != null)
                 MouseMove(this, e);
         }
+        public void OnMouseDown(MouseEventArgs e)
+        {
+            if (MouseDown != null)
+                MouseDown(this, e);
+        }
+        public void OnMouseUp(MouseEventArgs e)
+        {
+            if (MouseUp != null)
+                MouseUp(this, e);
+        }
+
     }
 }

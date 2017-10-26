@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UMLDesigner.UMLDocument.Objects;
 using System.Drawing.Drawing2D;
+using UMLDesigner.UMLDocument.Interfaces;
+using UMLDesigner.Extensions;
 
 namespace UMLDesigner.UMLDocument.Designer
 {
@@ -26,11 +28,36 @@ namespace UMLDesigner.UMLDocument.Designer
             if (Uml != null)
             {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+                // draw the objects
                 foreach (var cls in Uml.Classes)
                     cls.Draw(e.Graphics, Font, ForeColor);
+                foreach (var rel in Uml.Relations)
+                    rel.Draw(e.Graphics, rel.Property1, rel.Property2);
+
+                const int size = 5;
+
+                //draw the glyphs
+                foreach (var cls in Uml.Classes)
+                    if(cls.GetType().GetInterfaces().Contains(typeof(IRectangular)))
+                    {
+                        e.Graphics.DrawFillRectangle(Pens.Black, Brushes.Lime, cls.X - size, cls.Y - size, size*2, size * 2);
+                        e.Graphics.DrawFillRectangle(Pens.Black, Brushes.Lime, cls.X + cls.Width - size, cls.Y - size, size * 2, size * 2);
+                        e.Graphics.DrawFillRectangle(Pens.Black, Brushes.Lime, cls.X + cls.Width - size, cls.Y + cls.Height - size, size * 2, size * 2);
+                        e.Graphics.DrawFillRectangle(Pens.Black, Brushes.Lime, cls.X - size, cls.Y + cls.Height - size, size * 2, size * 2);
+
+                    }
             }
         }
 
+        #region Actions
+        public enum eAction
+        {
+            None,
+            Move_Class
+        }
+        public eAction Action { get; private set; } = eAction.None;
+        #endregion
         #region Helper Functions
         private UmlClass GetObjectBelowCursor(Point pos)
         {
@@ -49,25 +76,51 @@ namespace UMLDesigner.UMLDocument.Designer
         private Point grip_point = new Point();
         private void UmlDesigner_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (hovered_uml == null)
+            { }
+            else if (hovered_uml.IsMouseInHeader)
             {
-                if (hovered_uml == null)
+                if (e.Button == MouseButtons.Left)
                 {
+                    // System action
                     move_object = hovered_uml;
                     grip_point = new Point(e.Location.X - move_object.X, e.Location.Y - move_object.Y);
-                }
-                else if (hovered_uml.IsMouseInHeader)
-                {
-                    move_object = hovered_uml;
-                    grip_point = new Point(e.Location.X - move_object.X, e.Location.Y - move_object.Y);
+                    Action = eAction.Move_Class;
                 }
                 else
-                    move_object = null;
+                {
+                    // No system action
+                    // Reroute the event to the UmlClass
+                    var cls = GetObjectBelowCursor(e.Location);
+                    if (cls != null)
+                        cls.OnMouseDown(new MouseEventArgs(e.Button, e.Clicks, e.X - cls.X, e.Y - cls.Y, e.Delta));
+                }
+            }
+            else
+            {
+                Action = eAction.None;
+                move_object = null;
+                // No system action
+                // Reroute the event to the UmlClass
+                hovered_uml.OnMouseDown(new MouseEventArgs(e.Button, e.Clicks, e.X - hovered_uml.X, e.Y - hovered_uml.Y, e.Delta));
             }
         }
         private void UmlDesigner_MouseUp(object sender, MouseEventArgs e)
         {
-            move_object = null;
+            if(move_object != null)
+            {
+                // System action
+                // We were dragging a UmlClass
+                move_object = null;
+            }
+            else
+            {
+                // No system action
+                // Reroute the event to the UmlClass
+                var cls = GetObjectBelowCursor(e.Location);
+                if (cls != null)
+                    cls.OnMouseUp(new MouseEventArgs(e.Button, e.Clicks, e.X - cls.X, e.Y - cls.Y, e.Delta));
+            }
         }
         #endregion
         #region Pass Events to children
@@ -75,9 +128,19 @@ namespace UMLDesigner.UMLDocument.Designer
         private UmlClass hovered_uml;
         private void UmlDesigner_MouseClick(object sender, MouseEventArgs e)
         {
-            var cls = GetObjectBelowCursor(e.Location);
-            if(cls != null)
-                cls.OnMouseClick(new MouseEventArgs(e.Button, e.Clicks, e.X - cls.X, e.Y - cls.Y, e.Delta));
+            if (false)
+            {
+                // System action
+                // We don't need this
+            }
+            else
+            {
+                // No system action
+                // Reroute the event to the UmlClass
+                var cls = GetObjectBelowCursor(e.Location);
+                if (cls != null)
+                    cls.OnMouseClick(new MouseEventArgs(e.Button, e.Clicks, e.X - cls.X, e.Y - cls.Y, e.Delta));
+            }
         }
         private void UmlDesigner_MouseEnter(object sender, EventArgs e)
         {
@@ -104,11 +167,14 @@ namespace UMLDesigner.UMLDocument.Designer
         {
             if (move_object != null)
             {
+                // System action
+                // Move the dragged object
                 move_object.X = e.X - grip_point.X;
                 move_object.Y = e.Y - grip_point.Y;
             }
             else
             {
+                // No system action
                 var cls = GetObjectBelowCursor(e.Location);
                 if (cls == null)
                 {

@@ -2,8 +2,15 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="UMLDesigner.UMLDocument.Designer.UmlDesigner">
     <Position X="0.5" Y="0.5" Width="3.25" />
+    <NestedTypes>
+      <Enum Name="UMLDesigner.UMLDocument.Designer.UmlDesigner.eAction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UMLDocument\Designer\UmlDesigner.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAABAKAAAAAAAACAAAACAAAAAAAAAAAAEgAAAAA=</HashCode>
+      <HashCode>AAAAQAABACAAABAAAACBAAACAAAEAAABCAEAAiBAAAQ=</HashCode>
       <FileName>UMLDocument\Designer\UmlDesigner.cs</FileName>
     </TypeIdentifier>
   </Class>

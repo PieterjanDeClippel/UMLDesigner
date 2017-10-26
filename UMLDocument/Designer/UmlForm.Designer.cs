@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UmlForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tsbAddClass = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.umlDesigner1 = new UMLDesigner.UMLDocument.Designer.UmlDesigner();
             this.toolStrip1.SuspendLayout();
@@ -40,7 +40,7 @@
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.tsbAddClass,
             this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -48,14 +48,15 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // tsbAddClass
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.tsbAddClass.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAddClass.Image = ((System.Drawing.Image)(resources.GetObject("tsbAddClass.Image")));
+            this.tsbAddClass.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAddClass.Name = "tsbAddClass";
+            this.tsbAddClass.Size = new System.Drawing.Size(24, 24);
+            this.tsbAddClass.Text = "Add Class";
+            this.tsbAddClass.Click += new System.EventHandler(this.tsbAddClass_Click);
             // 
             // toolStripButton2
             // 
@@ -94,7 +95,7 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton tsbAddClass;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private UmlDesigner umlDesigner1;
     }

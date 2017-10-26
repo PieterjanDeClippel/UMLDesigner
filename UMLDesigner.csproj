@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\Graphics_ext.cs" />
     <Compile Include="General\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +55,7 @@
     </Compile>
     <Compile Include="General\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\Collectie.cs" />
     <Compile Include="UMLDocument\Designer\UmlDesigner.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -68,6 +70,7 @@
     </Compile>
     <Compile Include="UMLDocument\Enums\RelationType.cs" />
     <Compile Include="UMLDocument\Interfaces\IDrawable.cs" />
+    <Compile Include="UMLDocument\Interfaces\IRectangular.cs" />
     <Compile Include="UMLDocument\Objects\Relation.cs" />
     <Compile Include="UMLDocument\Objects\UML.cs" />
     <Compile Include="UMLDocument\Objects\UmlClass.cs" />

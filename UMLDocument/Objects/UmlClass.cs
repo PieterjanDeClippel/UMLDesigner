@@ -6,21 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UMLDesigner.Shared;
 using UMLDesigner.UMLDocument.Interfaces;
 
 namespace UMLDesigner.UMLDocument.Objects
 {
-    public class UmlClass : IDrawable
+    public class UmlClass : IDrawable, IRectangular
     {
         #region Constructor
         public UmlClass()
         {
-            Properties = new List<UmlProperty>();
+            Properties = new Collectie<UmlProperty>();
         }
         #endregion
         #region Properties
         public string Name { get; set; }
-        public List<UmlProperty> Properties { get; set; }
+        public Collectie<UmlProperty> Properties { get; set; }
 
         public int Width { get; set; }
         public int Height { get; set; }
@@ -124,6 +125,8 @@ namespace UMLDesigner.UMLDocument.Objects
         public event EventHandler MouseEnter;
         public event EventHandler MouseLeave;
         public event EventHandler MouseMove;
+        public event MouseEventHandler MouseDown;
+        public event MouseEventHandler MouseUp;
 
         private bool is_hover = false;
         private UmlProperty hovered_property;
@@ -208,6 +211,23 @@ namespace UMLDesigner.UMLDocument.Objects
             if (MouseMove != null)
                 MouseMove(this, e);
         }
+        public void OnMouseDown(MouseEventArgs e)
+        {
+            if (MouseDown != null)
+                MouseDown(this, e);
 
+            var prop = GetPropertyBelowCursor(e.Location);
+            if (prop != null)
+                prop.OnMouseDown(new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y - 22 - heading_height, e.Delta));
+        }
+        public void OnMouseUp(MouseEventArgs e)
+        {
+            if (MouseUp != null)
+                MouseUp(this, e);
+
+            var prop = GetPropertyBelowCursor(e.Location);
+            if (prop != null)
+                prop.OnMouseUp(new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y - 22 - heading_height, e.Delta));
+        }
     }
 }
